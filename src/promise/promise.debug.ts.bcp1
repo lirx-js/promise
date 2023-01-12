@@ -1,0 +1,67 @@
+import { promiseAll } from './constructor/implementations/promise-all';
+import { promiseAllSettled } from './constructor/implementations/promise-all-settled';
+import { promiseAny } from './constructor/implementations/promise-any';
+import { PROMISE_CONSTRUCTOR } from './constructor/implementations/promise-constructor.constant';
+import { promiseResolve } from './constructor/implementations/promise-resolve';
+import { IPromiseInitResolveFunction } from './constructor/traits/new/promise-new.function-definition';
+import { IPromise } from './instance/promise.trait-collection';
+import { IPromiseValue } from './promise-value.type';
+
+/** PROMISE LIKE **/
+
+// export type IPromiseLikeOrValue<GValue> =
+//   | IPromiseLike<GValue>
+//   | GValue;
+
+/*-----------------------*/
+
+/*-----------------------*/
+
+// Promise.resolve().finally(_ => Promise.reject(5))
+
+// const c: IPromiseValue<IPromise<boolean>> = null as any;
+// const c: IPromiseValue<Promise<boolean> | number> = null as any;
+// const c: IPromiseValue<IPromise<boolean> | number> = null as any;
+// const a: IPromiseThenFunction<boolean, string, number> = null as any;
+// const b = a((_) => '', _ => 4);
+
+// const z = promiseResolve(5);
+// const z = promiseResolve();
+// const z = promiseRace([
+//   1,
+//   'k',
+// ]);
+
+// const z = promiseAll([
+//   promiseResolve<number>(1),
+//   'k',
+// ]);
+
+// const z = promiseAllSettled([
+//   promiseResolve<number>(1),
+//   'k',
+// ]);
+
+// const z = promiseAny([
+//   promiseResolve<number>(1),
+//   'k',
+// ]);
+
+const z = new PROMISE_CONSTRUCTOR<number | IPromise<number>>((resolve): any => resolve(promiseResolve<number>(1)));
+
+// const b = promiseResolve(promiseResolve<number>(1));
+
+
+// const u = z.then(
+//   // null,
+//   (_) => '',
+//   _ => promiseResolve(true),
+// );
+// const u = z.catch(() => promiseResolve(true));
+// const u = z.catch((): never => {
+//   throw 'ok';
+// });
+const u = z.finally(() => promiseResolve(true));
+// type a = IPromiseValue<Promise<number>>;
+
+
