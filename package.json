@@ -1,7 +1,7 @@
 {
   "_name": "test",
   "name": "@lirx/promise",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Description",
   "repository": {
     "type": "git",
@@ -16,6 +16,6 @@
   "license": "MIT",
   "access": "public",
   "dependencies": {
-    "@lirx/utils": "^1.0.0-beta.1"
+    "@lirx/utils": "^1.0.0"
   }
 }
