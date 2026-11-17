@@ -1,4 +1,5 @@
 export * from './catch/index';
 export * from './finally/index';
+export * from './symbol-to-string-tag/index';
 export * from './then/index';
 export * from './types/index';

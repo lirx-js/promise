@@ -1,9 +1,11 @@
 import { IAbortTimer, createTimeout } from '@lirx/utils';
+import {
+  IAbortablePromiseOnAbortFunction,
+  IAbortablePromiseOnAbortUnsubscribeFunction,
+} from './abortable/on-abort/abortable-promise-on-abort-function.type';
 import { IAbortablePromiseOptions } from './abortable/abortable-promise-options.type';
 import {
   createAbortablePromise,
-  IAbortablePromiseOnAbortFunction,
-  IAbortablePromiseOnAbortUnsubscribeFunction,
 } from './abortable/create-abortable-promise';
 import {
   IPromiseInitRejectFunction,

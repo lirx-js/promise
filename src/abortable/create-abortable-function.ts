@@ -2,7 +2,10 @@ import { createAbortError, IGenericFunction } from '@lirx/utils';
 import { IAbortablePromiseOptions } from './abortable-promise-options.type';
 
 /**
- * Creates a function with an abortable context
+ * @experimental
+ * Creates a function with an abortable context.
+ * If the incoming signal is in an aborted state when the returned function is called, an AbortError is thrown,
+ * else it calls the incoming function and returns its result.
  */
 export function createAbortableFunction<GFunction extends IGenericFunction>(
   fnc: GFunction,
@@ -14,8 +17,10 @@ export function createAbortableFunction<GFunction extends IGenericFunction>(
     this: any,
     ...args: Parameters<GFunction>
   ): ReturnType<GFunction> {
-    return signal?.aborted
-      ? createAbortError({ signal })
-      : fnc.apply(this, args);
+    if (signal?.aborted) {
+      throw createAbortError({ signal });
+    } else {
+      return fnc.apply(this, args);
+    }
   }) as GFunction;
 }

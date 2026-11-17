@@ -17,6 +17,11 @@ export interface ICallSelfAbortablePromiseFactory<GValue, GOptions extends IAbor
   ): IPromise<GValue>;
 }
 
+/**
+ * Calls a promiseFactory with an AbortSignal as argument.
+ * When the returned Promise completes (fulfilled or errored), this AbortSignal is aborted.
+ * This function is useful to call PromiseFactories that self cancel when complete (for example in a Promise.race or .all).
+ */
 export function callSelfAbortablePromiseFactory<GValue, GOptions extends IAbortablePromiseOptions = IAbortablePromiseOptions>(
   factory: ICallSelfAbortablePromiseFactory<GValue, GOptions>,
   options?: GOptions,
@@ -46,3 +51,4 @@ export function callAndHandleSelfAbortablePromiseFactory<GValue, GOptions extend
     resolve(callSelfAbortablePromiseFactory<GValue, GOptions>(factory, options));
   }, options);
 }
+

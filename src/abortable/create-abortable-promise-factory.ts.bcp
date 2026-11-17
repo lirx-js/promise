@@ -1,0 +1,48 @@
+import { isNullish } from '@lirx/utils';
+import { IPromiseFactory } from '../promise-factory/promise-factory.type';
+import { IPromise } from '../promise/instance/promise.trait-collection';
+import { IAbortablePromiseOptions } from './abortable-promise-options.type';
+import { createAbortSignalFromAbortSignals } from './controller/create-abort-signal-from-abort-signals';
+
+/**
+ * Seems useless
+ */
+export function createAbortablePromiseFactory<GValue>(
+  factory: IPromiseFactory<GValue>,
+  {
+    signal,
+  }: IAbortablePromiseOptions = {},
+): IPromiseFactory<GValue> {
+  return (
+    {
+      signal: _signal,
+    }: IAbortablePromiseOptions = {},
+  ): IPromise<GValue> => {
+    // const __signal: AbortSignal | undefined = createAbortSignalFromAbortSignals([
+    //   signal,
+    //   _signal,
+    // ].filter((_): _ is AbortSignal => !isNullish(_)));
+
+    let __signal: AbortSignal | null | undefined;
+    if (isNullish(signal)) {
+      if (isNullish(_signal)) {
+        __signal = void 0;
+      } else {
+        __signal = _signal;
+      }
+    } else {
+      if (isNullish(_signal)) {
+        __signal = signal;
+      } else {
+        __signal = createAbortSignalFromAbortSignals([
+          signal,
+          _signal,
+        ]);
+      }
+    }
+
+    return factory({
+      signal: __signal,
+    });
+  };
+}
